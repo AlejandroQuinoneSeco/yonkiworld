@@ -474,6 +474,17 @@ const API_MAP={
   "Democratic Republic of Congo":"RD Congo","Uzbekistan":"Uzbekistán",
   "Panama":"Panamá","Curacao":"Curaçao","Curaçao":"Curaçao","Serbia":"Serbia"
 };
+
+function scoreMatch(pred, result, m){
+  if(!pred||!result) return 0;
+  const ph=parseInt(pred.h),pa=parseInt(pred.a),rh=parseInt(result.h),ra=parseInt(result.a);
+  if(isNaN(ph)||isNaN(pa)||isNaN(rh)||isNaN(ra)) return 0;
+  const{e,w}=m.pts;
+  if(ph===rh&&pa===ra) return e;
+  if(Math.sign(ph-pa)===Math.sign(rh-ra)) return w;
+  return 0;
+}
+
 function scoreUser(uid,allPreds,results,offAw,offSp){
   const up=allPreds[uid]||{};
 
